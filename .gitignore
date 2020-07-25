@@ -1,3 +1,5 @@
 learn-express/node_modules
 npm/node_modules
 ts-node.js/node_modules
+ts-express/node_modules
+sequelize/node_modules
