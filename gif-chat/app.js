@@ -1,4 +1,3 @@
-// 라이브러리
 const express = require("express");
 const session = require("express-session");
 const morgan = require("morgan");
@@ -7,16 +6,15 @@ const flash = require("connect-flash");
 const path = require("path");
 require("dotenv").config();
 
-// 웹소켓 연결
-const webSocket = require("./socket.js");
-
 const indexRouter = require("./routes");
+const connect = require("./schemas");
 
 const app = express();
+connect();
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
-app.set("port", process.env.PORT || 8005);
+app.set("port", process.env.PORT || 3000);
 
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "public")));
@@ -47,14 +45,13 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
-  res.status(err.status || 500);
+  res.status = err.status || 500;
   res.render("error");
-  next();
 });
 
 const server = app.listen(app.get("port"), () => {
-  console.log(app.get("port"), "번 포트 작동 중!");
+  console.log(`${app.get("port")}포트 익스프레스 서버 작동 중`);
 });
 
-// 웹소켓 라인
-webSocket(server);
+const socket = require("./socket");
+socket(server, app);
