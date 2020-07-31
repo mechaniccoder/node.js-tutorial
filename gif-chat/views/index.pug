@@ -1,0 +1,75 @@
+extends layout
+
+block content
+  h1 mechaniccoder의 채팅앱
+  fieldset
+    legend 채팅방 목록
+    table
+      thead
+        tr
+          th 방 제목
+          th 종류
+          th 인원
+          th 방장
+      tbody
+        for room in rooms
+          tr(data-id=room._id)
+            td= room.title
+            td= room.password ? '비밀방' : '공개방'
+            td= room.max
+            td(style='color:' + room.owner)= room.owner
+            -let password = room.password ? 'true' : 'false'
+            td: button(data-password=password data-id=room._id).join-btn 입장
+  a(href="/room") 채팅방 생성
+  script(src="/socket.io/socket.io.js")
+  script.
+    let socket = io.connect('http://localhost:3000/room', {
+      path: '/socket.io'
+    });
+    // 서버에서 오는 이벤트 등록
+    socket.on('newRoom', (data) => {
+      let tr = document.createElement('tr');
+      let td = document.createElement('td');
+      td.textContent = data.title
+      tr.appendChild(td);
+
+      td = document.createElement('td');
+      td.textContent = data.password ? '비밀방' : '공개방';
+      tr.appendChild(td);
+
+      td = document.createElement('td');
+      td.textContent = data.max
+      tr.appendChild(td);
+
+      td = document.createElement('td');
+      td.style.color = data.owner;
+      td.textContent = data.owner;
+      tr.appendChild(td);
+
+      td = document.createElement('td');
+      let button =document.createElement('button');
+      button.textContent = '입장'
+      button.addEventListener('click', enterRoom);
+      td.appendChild(button);
+      tr.appendChild(td);
+
+      document.querySelector('table tbody').appendChild(tr);
+    });
+
+    function enterRoom(event) {
+      const enterButton = event.target;
+      // 비밀번호 검사
+      if (enterButton.dataset.password === 'true') {
+        const password = prompt('비밀번호를 입력하세요');
+        location.href = '/room/' + enterButton.dataset.id + '?password=' + password;
+      } else {
+        location.href = '/room/' + enterButton.dataset.id;
+      }
+      // 최대인원 검사
+      // 방 존재유무 검사
+    }
+
+    document.querySelectorAll('.join-btn').forEach(btn => {
+      btn.addEventListener('click', enterRoom);
+    });
+    

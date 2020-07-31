@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  fieldset
+    legend 채팅방 생성
+    form(action='/room' method='post')
+      div: input(type='text' name='title' placeholder='방 제목')
+      div: input(type='password' name='password' placeholder='설정하면 비밀방이 됩니다.')
+      div: input(type='number' name='max' min='2' max='10' value='10' placeholder='수용인원')
+      div: button(type='submit') 생성
