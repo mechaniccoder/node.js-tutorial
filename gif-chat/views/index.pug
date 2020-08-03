@@ -30,7 +30,7 @@ block content
     socket.on('newRoom', (data) => {
       let tr = document.createElement('tr');
       let td = document.createElement('td');
-      td.textContent = data.title
+      td.textContent = data.title;
       tr.appendChild(td);
 
       td = document.createElement('td');
@@ -49,12 +49,24 @@ block content
       td = document.createElement('td');
       let button =document.createElement('button');
       button.textContent = '입장'
+      button.dataset.password = data.password ? 'true' : 'false';
+      button.dataset.id = data._id;
+      button.classList.add = 'join-btn';
       button.addEventListener('click', enterRoom);
       td.appendChild(button);
       tr.appendChild(td);
-
+      tr.dataset.id = data._id;
       document.querySelector('table tbody').appendChild(tr);
+      console.log(tr);
     });
+
+    socket.on('removeRoom', (data) => {
+      document.querySelectorAll('tbody tr').forEach(tr => {
+        if(tr.dataset.id === data) {
+          tr.parentNode.removeChild(tr);
+        }
+      })
+    })
 
     function enterRoom(event) {
       const enterButton = event.target;
