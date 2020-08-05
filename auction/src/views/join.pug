@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  .time-line
+    form#join-form(action="/auth/join" method='post')
+      .input-group
+        label(for="join-email") 이메일
+        input#join-email(type="email" name='email' required autofocus)
+      .input-group
+        label(for="join-nick") 닉네임
+        input#join-nick(type="text" name='nick' required)
+      .input-group
+        label(for="join-password") 비밀번호
+        input#join-password(type="password" name='password' required)
+      .input-group
+        label(for="join-password-confirm") 비밀번호 확인
+        input#join-password-confirm(type="password" name='password-confirm' required)
+      .input-group
+        label(for="join-money") 보유자산
+        input#join-money(type="number" name='money' required)
+      if joinError
+        .error-message= joinError
+      button(type='submit') 가입
+        
