@@ -14,7 +14,7 @@ export default (passport: any) => {
       },
       async (email: any, password: any, done: any) => {
         try {
-          const exUser = await User.find({ where: { email } });
+          const exUser = await User.findOne({ where: { email } });
           if (exUser) {
             const result = await bcrypt.compare(password, exUser.password);
             if (result) {
@@ -26,7 +26,6 @@ export default (passport: any) => {
             done(null, false, { message: '가입하지 않은 회원입니다.' });
           }
         } catch (err) {
-          // eslint-disable-next-line no-console
           console.error(err);
           done(err);
         }

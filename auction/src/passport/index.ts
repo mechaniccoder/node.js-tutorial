@@ -9,7 +9,7 @@ export default (passport: any) => {
   });
 
   passport.deserializeUser((id: any, done: any) => {
-    User.find({ where: { id } })
+    User.findOne({ where: { id } })
       .then((user: any) => done(null, user))
       .catch((err: Error) => done(err));
   });

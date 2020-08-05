@@ -6,7 +6,7 @@ import Good from './good';
 import Auction from './auction';
 
 const env = process.env.NODE_ENV || 'development';
-const config = require('../../config/config')[env];
+const config = require('../../config/config.json')[env];
 
 const sequelize = new Sequelize(
   config.database,
