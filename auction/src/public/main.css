@@ -1,0 +1,87 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  padding-top: 15px;
+}
+
+.profile-wrap {
+  padding: 5px;
+  border-radius: 0.3rem;
+}
+
+.profile-wrap .btn,
+.profile-wrap button.btn {
+  display: inline-block;
+  text-decoration: none;
+  background: #ffffff;
+  border-radius: 0.4rem;
+  border: none;
+  color: skyblue;
+  outline: none;
+  width: 7rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.profile-wrap #join.btn {
+  margin-right: 1rem;
+}
+
+.profile {
+  background: skyblue;
+  padding: 10px;
+  text-align: center;
+}
+
+.profile #login-form .input-wrap {
+  display: flex;
+}
+
+.profile #login-form .input-wrap + .input-wrap {
+  padding: 0.3rem 0 0.5rem;
+}
+.profile #login-form .input-wrap label {
+  width: 70px;
+  font-weight: bold;
+}
+
+.profile #login-form .input-wrap input {
+  flex: 1;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+  outline: none;
+  border: none;
+  border: 1px solid;
+}
+
+footer {
+  text-align: center;
+}
+
+footer a {
+  text-decoration: none;
+  color: skyblue;
+}
+
+footer a:hover {
+  color: black;
+}
+
+.time-line {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+#good-list,
+#good-list th,
+#good-list td {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
