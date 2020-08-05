@@ -99,13 +99,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = __webpack_require__(/*! express */ "express");
 const path = __webpack_require__(/*! path */ "path");
 const app = express();
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
-app.use("/", (req, res) => {
-    res.send("Hello World!");
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+app.use('/', (req, res) => {
+    res.send('Hello World!');
 });
 app.listen(3000, () => {
-    console.log("3000번 포트 서버 대기중");
+    console.log('3000번 포트 서버 대기!');
 });
 
 /* WEBPACK VAR INJECTION */}.call(this, "/"))
@@ -135,4 +135,4 @@ module.exports = require("path");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=main.bundle.js.map
