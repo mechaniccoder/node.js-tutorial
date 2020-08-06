@@ -18,3 +18,23 @@ block content
             td= good.price
             td.time(data-start=good.createdAt) 00:00:00
             td: a.enter.btn(href='/good/' + good.id) 입장
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.42/polyfill.min.js")
+  script.
+    let es = new EventSource('/sse');
+    es.onmessage = (e) => {
+      [].forEach.call(document.querySelectorAll('.time'), (td) => {
+        let end = new Date(td.dataset.start);
+        let server = new Date(parseInt(e.data, 10));
+        end.setDate(end.getDate() + 1);
+        let t = end - server;
+        if (server >= end) {
+          return td.textContent = '00:00:00';
+        } else {
+          let t = end - server;
+          let hours = Math.floor(t / 1000 / 60 / 60);
+          let seconds = ('0' + Math.floor((t / 1000) % 60)).slice(-2);
+          let minutes = ('0' + Math.floor((t / 1000 / 60) % 60)).slice(-2);
+          return td.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+      });
+    };

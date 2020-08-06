@@ -1,0 +1,14 @@
+extends layout
+
+block good
+  h2= good.name
+  img(src='/img/' + good.img)
+  div= '등록자: ' + good.owner.nick
+  div= '시작가: ' + good.price
+  strong#time(data-start=good.createdAt)
+
+block content
+  .chat-wrapper
+    h2 hello
+
+

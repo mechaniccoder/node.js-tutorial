@@ -5,7 +5,9 @@
 }
 
 .container {
-  display: flex;
+  display: inline-flex;
+  width: 35%;
+  flex-direction: column;
   padding-top: 15px;
 }
 
@@ -79,9 +81,20 @@ footer a:hover {
   flex: 1;
 }
 
+.time-line tbody td img {
+  display: table-cell;
+  width: 100%;
+  height: 150px;
+}
+
 #good-list,
 #good-list th,
 #good-list td {
+  text-align: center;
   border-collapse: collapse;
   border: 1px solid black;
+}
+
+.chat-wrapper {
+  display: inline-flex;
 }

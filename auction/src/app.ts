@@ -3,7 +3,6 @@ import * as express from 'express';
 import * as session from 'express-session';
 import * as morgan from 'morgan';
 import * as cookieParser from 'cookie-parser';
-// import flash from 'connect-flash';
 import * as passport from 'passport';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
@@ -15,12 +14,14 @@ import authRouter from './routes/auth';
 // 모듈
 import db from './models';
 import passportConfig from './passport';
+import webSocket from './socket';
+import sse from './sse';
 
 const { sequelize } = db;
 
 dotenv.config();
 
-const app = express();
+export const app = express();
 sequelize.sync();
 passportConfig(passport);
 
@@ -40,6 +41,7 @@ app.set('port', process.env.PORT || 8000);
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/img', express.static('uploads'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -69,6 +71,9 @@ app.use((err: Error, req: express.Request, res: express.Response) => {
   res.render('error');
 });
 
-app.listen(app.get('port'), () => {
+export const server = app.listen(app.get('port'), () => {
   console.log(`${app.get('port')}번 포트 서버 대기!`);
 });
+
+webSocket(server, app);
+sse(server);

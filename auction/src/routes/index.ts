@@ -81,6 +81,7 @@ router.post(
   async (req: any, res, next) => {
     try {
       const { name, price } = req.body;
+      console.log(req.file);
       await Good.create({
         ownerId: req.user.id,
         name,
@@ -88,6 +89,27 @@ router.post(
         img: req.file.filename,
       });
       res.redirect('/');
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  },
+);
+
+router.get(
+  '/good/:id',
+  isLoggedIn,
+  async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+  ) => {
+    try {
+      const good = await Good.findOne({
+        where: { id: req.params.id },
+        include: { model: User, as: 'owner' },
+      });
+      res.render('auction', { title: '경매방', good });
     } catch (err) {
       console.error(err);
       next(err);
