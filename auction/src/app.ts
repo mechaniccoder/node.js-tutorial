@@ -16,6 +16,7 @@ import db from './models';
 import passportConfig from './passport';
 import webSocket from './socket';
 import sse from './sse';
+import checkAuction from './checkAuction';
 
 const { sequelize } = db;
 
@@ -24,6 +25,7 @@ dotenv.config();
 export const app = express();
 sequelize.sync();
 passportConfig(passport);
+checkAuction();
 
 const sessionMiddleware = session({
   resave: false,
